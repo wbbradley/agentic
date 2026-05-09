@@ -47,6 +47,7 @@
   "showClearContextOnPlanAccept": true,
   "autoMemoryEnabled": false,
   "autoDreamEnabled": false,
+  "theme": "dark",
   "verbose": true,
   "preferredNotifChannel": "notifications_disabled",
   "autoCompactEnabled": false,
