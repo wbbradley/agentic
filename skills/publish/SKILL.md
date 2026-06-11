@@ -6,7 +6,8 @@ description: Prepare a project for release — update README, changelog, commit 
 ## Publish Workflow
 
 Prepare the current project for a release. `$ARGUMENTS` may specify the version bump type (patch,
-minor, major) or an explicit version number. Default to **patch** if unspecified.
+minor, major) or an explicit version number. Default to **minor** or **patch** if unspecified. When
+we are below version 1.0, don't ask, just use your intuition.
 
 ### Step 0: Preflight
 
