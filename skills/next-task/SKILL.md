@@ -24,9 +24,12 @@ instructions but on a unit of work that will fit.
 
 ### Step 2: Plan
 
-Enter plan mode. Explore the codebase thoroughly to understand the current state — read the
-relevant source files, tests, and any related code. Produce a detailed, concrete implementation
-plan that:
+You MUST enter plan mode with EnterPlanMode tool, any planning you do should be written to the
+plan-file path given by the EnterPlanMode tool. Do not write plans to new files on disk unless the
+user has asked you explicitly to do so.
+
+Explore the codebase thoroughly to understand the current state — read the relevant source files,
+tests, and any related code. Produce a detailed, concrete implementation plan that:
 
 - Lists every file to create or modify
 - Includes key code snippets or signatures where helpful
@@ -34,9 +37,8 @@ plan that:
   giving concrete goals to achieve in fixing the tests (TDD as appropriate)
 - Calls out risks or open questions discovered during exploration
 
-Critical: At the end of your plan document, include a section titled
-`## Post-Plan Execution Steps` containing the following verbatim instructions so they survive
-the context transition:
+Critical: At the end of your plan, include a section titled `## Post-Plan Execution Steps`
+containing the following verbatim instructions so they survive the context transition:
 
 ```markdown
 ## Post-Plan Execution Steps
@@ -72,7 +74,7 @@ count as future work items unless they would naturally be handled by existing fu
 PLAN.md or COMPLETED.md are ignored, don't force add them, otherwise commit them with other changes.
 ```
 
-Write the plan and exit plan mode. Do NOT ask "would you like to proceed?" unless you are truly
+You MUST run ExitPlanMode tool with the plan. Do NOT ask "would you like to proceed?" unless you are truly
 confused.
 
 ### Steps 3-7 (post-plan)
