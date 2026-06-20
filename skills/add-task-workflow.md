@@ -4,6 +4,25 @@ You are adding a new task to the project's `PLAN.md`. The user has described wha
 `$ARGUMENTS`. Your job is to turn that into a well-defined, actionable task that could be handed
 off to a strong junior SWE.
 
+### Naming principle (no stage/phase ordinals)
+
+Name tasks and the things they create by **what they are**, not where they fall in the
+sequence. Sequence-position labels — `Stage N`, `Phase N`/`Phase X`, `Step N`, `(PLAN.md)`
+back-pointers, "follow-up is Stage 4x" forward-pointers — are banned from task titles and from
+any durable artifact the task will create: filenames, identifiers, run-id/dir prefixes, env
+vars, doc titles/headings, commit scopes.
+
+- Decompose by capability; name each sub-task for the feature it builds ("looked-at-block
+  attribute head"), never its ordinal ("Stage 2").
+- Express ordering structurally — list order and plain prose ("first… then…", "requires X
+  first") — which stays true when items reorder; a number doesn't.
+- Allowed: genuine domain terms that merely contain the words (a protocol "configuration
+  phase", a numbered milestone that is the doc's actual subject). Judgment, not regex.
+
+Ordinals are indices into a process snapshot: once the work lands the index points at nothing
+the reader shares, and worse, it freezes into filenames and keys that can't be cleaned without
+breaking references.
+
 ### Step 1: Delegate to a research sub-agent
 
 Launch a sub-agent to do the exploration work. Before launching, read `PLAN.md` yourself so you can

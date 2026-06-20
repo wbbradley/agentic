@@ -49,6 +49,10 @@ Execute these steps in order:
 Execute the plan above. Work methodically — use task lists to track progress. Prefer editing
 existing files over creating new ones. Follow all project conventions from CLAUDE.md.
 
+**Naming gate:** before creating any file, identifier, run-id, or env var, ask "would this name
+make sense to someone who never read the plan?" If it encodes a sequence position (`Stage N` /
+`Phase N` / `stepN`), rename it now — cheap before a checkpoint or downstream reference pins it.
+
 ### Verify
 
 1. Run the project's build/lint command (Rust: `cargo clippy`, Haskell: `cabal build`, etc.).
