@@ -5,6 +5,8 @@ daemon.status.json
 jobs/
 *.log
 *.lock
+.*.json
+policy-limits.json
 agents/
 backups/
 file-history/
