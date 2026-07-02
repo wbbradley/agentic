@@ -101,8 +101,8 @@
     ]
   },
   "worktree": {
-    "bgIsolation": "none",
-    "baseRef": "fresh"
+    "baseRef": "fresh",
+    "bgIsolation": "none"
   },
   "statusLine": {
     "type": "command",
@@ -129,5 +129,6 @@
   "autoMemory": false,
   "feedbackSurveyState": {
     "lastShownTime": 1855530480555
-  }
+  },
+  "model": "claude-fable-5[1m]"
 }
