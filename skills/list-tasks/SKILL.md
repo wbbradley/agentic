@@ -10,7 +10,7 @@ You are summarizing the remaining work in the project's `PLAN.md`.
 
 ### Step 1: Delegate to a sub-agent
 
-Launch a sub-agent (subagent_type: "haiku-level") with the following instructions:
+Launch a sub-agent (subagent_type: "Haiku") with the following instructions:
 
 > Read `PLAN.md` at the project root. Identify all incomplete phases under "Next Up" and "Future
 > Work". For each phase, produce a single line with a short slogan-style title and a one-sentence

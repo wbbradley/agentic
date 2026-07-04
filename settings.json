@@ -23,6 +23,7 @@
     "defaultMode": "default",
     "disableAutoMode": "disable"
   },
+  "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -129,6 +130,5 @@
   "autoMemory": false,
   "feedbackSurveyState": {
     "lastShownTime": 1855530480555
-  },
-  "model": "claude-fable-5[1m]"
+  }
 }
