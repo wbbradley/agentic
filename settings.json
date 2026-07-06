@@ -130,5 +130,6 @@
   "autoMemory": false,
   "feedbackSurveyState": {
     "lastShownTime": 1855530480555
-  }
+  },
+  "model": "opus[1m]"
 }

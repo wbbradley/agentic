@@ -1,8 +1,9 @@
 .credentials.json
 .last-cleanup
 daemon/
-daemon.status.json
+daemon*
 jobs/
+*.json
 *.log
 *.lock
 .*.json
