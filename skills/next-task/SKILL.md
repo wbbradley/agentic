@@ -70,7 +70,12 @@ modified files and they don't look harmful, go ahead and commit them, too.
 Read `PLAN.md`. **Remove** the completed task entirely from the "Next Up" section — do not leave
 it in place with a [DONE] tag, strikethrough, or any other marker. The task and its related
 subsections should no longer appear in PLAN.md at all. PLAN.md should not have any sort of "Done"
-section. Then append a brief summary of the completed work to `COMPLETED.md`.
+section. Then append a new entry to `COMPLETED.md` with two parts, in this order:
+
+1. A brief summary, written now, of what was actually implemented.
+2. The **full text of the PLAN.md entry as it existed before work began**, verbatim — headings,
+   sub-bullets, notes, and acceptance criteria included, not paraphrased — so the original task
+   spec is preserved and not lost to git history archaeology.
 
 If upcoming PLAN.md items need modifications due to a change during this plan's implementation
 then update those. If new future work items were discovered, add them. Leftover compiler warnings
