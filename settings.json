@@ -23,6 +23,7 @@
     "defaultMode": "default",
     "disableAutoMode": "disable"
   },
+  "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -118,7 +119,7 @@
   "autoDreamEnabled": false,
   "skipWorkflowUsageWarning": true,
   "theme": "auto",
-  "verbose": true,
+  "verbose": false,
   "preferredNotifChannel": "notifications_disabled",
   "autoCompactEnabled": false,
   "fileCheckpointingEnabled": false,
