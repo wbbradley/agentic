@@ -23,7 +23,11 @@
     "defaultMode": "default",
     "disableAutoMode": "disable"
   },
+<<<<<<< Updated upstream
   "model": "opus[1m]",
+=======
+  "model": "claude-fable-5[1m]",
+>>>>>>> Stashed changes
   "hooks": {
     "PreToolUse": [
       {
