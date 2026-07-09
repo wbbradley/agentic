@@ -122,7 +122,7 @@
   "autoMemoryEnabled": false,
   "autoDreamEnabled": false,
   "skipWorkflowUsageWarning": true,
-  "theme": "auto",
+  "theme": "dark",
   "verbose": false,
   "preferredNotifChannel": "notifications_disabled",
   "autoCompactEnabled": false,
