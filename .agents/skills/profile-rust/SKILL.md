@@ -5,8 +5,8 @@ description: Profile a Rust binary with samply on macOS, extract CPU hotspots, a
 
 ## Rust Profiling Workflow (macOS, samply)
 
-Profile a Rust binary to identify CPU hotspots and memory usage. `$ARGUMENTS` should specify
-the binary/example to profile and any relevant flags (e.g., `--example profile_encoding --size 32m`).
+Profile a Rust binary to identify CPU hotspots and memory usage. Use the binary or example and any
+relevant flags from the current user request (e.g. `--example profile_encoding --size 32m`).
 
 ### Step 1: Build with debug symbols
 

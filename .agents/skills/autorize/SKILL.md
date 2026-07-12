@@ -1,6 +1,6 @@
 ---
 name: autorize
-description: Set up and scaffold an autorize experiment in this repo — interview the user for the objective, scoring command, agent CLI, schedule, and boundaries, then draft `.autorize/<name>/{config.toml,program.md}` + any helper scoring script for review before writing. Use whenever the user wants to start, configure, or bootstrap an autorize run.
+description: Set up and scaffold an autorize experiment in this repo — interview the user for the objective, scoring command, agent CLI, schedule, and boundaries, then draft the experiment config, program, and any helper scoring script for review before writing. Use whenever the user wants to start, configure, or bootstrap an autorize run.
 ---
 
 ## 1. Load context first
@@ -35,11 +35,9 @@ pre-decide it.
 
 ## 3. Interview the user
 
-Drive every structured/enum choice through `AskUserQuestion`. Free-text
-answers (experiment name, improvement goal, scoring command) can be
-gathered conversationally.
-
-`AskUserQuestion` allows at most 4 questions per call. Suggested batches:
+Use the harness's structured user-input tool for enum choices when one is available. Otherwise ask
+concise conversational questions. Gather free-text answers such as the experiment name,
+improvement goal, and scoring command conversationally. Suggested batches:
 
 - **Batch A — objective shape**
   1. `objective.direction` — min vs max.
@@ -54,13 +52,13 @@ gathered conversationally.
   4. `iteration.max_consecutive_noops` — default `5` vs override.
 
 - **Batch C — agent + boundaries**
-  1. `agent.command` — default `claude --print {prompt_file}` vs custom.
+  1. `agent.command` — the installed agent CLI command vs a custom command.
   2. `agent.stdin` — `none` (use `{prompt_file}`) vs `prompt` (pipe stdin).
   3. `boundaries.deny_paths` — additions beyond the template default
      (`.autorize/**`, `*.lock`)?
   4. `iteration.keep_worktrees` — keep per-iter dirs for debugging?
 
-Gather these free-text (not via `AskUserQuestion`):
+Gather these as free text:
 
 - Experiment **`name`** — must match `[A-Za-z0-9_-]+`. Validate the user's
   answer before continuing.
@@ -118,8 +116,7 @@ acceptance:
 
 1. Run `autorize init <name>` to create `.autorize/<name>/config.toml`
    and `.autorize/<name>/program.md` from the templates.
-2. Overwrite both files with the accepted drafts (use `Write`, not `Edit`,
-   since the template content is being replaced wholesale).
+2. Replace both template files with the accepted drafts.
 3. If a helper scoring script was drafted, write it at the repo root (or
    wherever the user prefers) and `chmod +x` it.
 

@@ -5,9 +5,9 @@ description: Always run this skill when asked to review a Github PR.
 
 Never perform a shallow review of a pull request. Always perform a deep thorough review.
 
-`$ARGUMENTS` should contain either a PR number, a PR URL, or an `owner/repo#number` reference.
-Parse it to determine the owner, repo, and PR number. If only a number is given, infer owner/repo
-from the current git remote.
+The current user request should contain a PR number, PR URL, or `owner/repo#number` reference.
+Parse it to determine the owner, repository, and PR number. If only a number is given, infer the
+owner and repository from the current git remote.
 
 ## Setup
 
@@ -18,7 +18,8 @@ gh repo clone owner/repo /tmp/review-pr/owner/repo -- --filter=blob:none
 gh pr checkout <number>
 ```
 
-Follow standard post-clone checklist (read CLAUDE.md, README, etc.).
+Follow the standard post-clone checklist, including `AGENTS.md`, any harness-specific compatibility
+instructions, and `README.md`.
 
 ## Approach
 
@@ -44,8 +45,9 @@ This should be a number between 1 and 5. A small config change needs one pass. A
 major feature needs many focused passes. For PRs over ~500 lines changed, introducing significant
 new functionality, or containing complex logic, always do at least 3 passes.
 
-When reviewing ANY complex PRs, launch sub-agents to trace execution paths, adversarial scenarios,
-and subtle correctness bugs.
+When reviewing a complex PR and the harness supports delegation, launch sub-agents to trace
+execution paths, adversarial scenarios, and subtle correctness bugs. Otherwise, perform those as
+separate focused passes yourself.
 
 ### Step 3: Execute review passes
 

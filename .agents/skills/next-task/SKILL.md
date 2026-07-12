@@ -7,15 +7,13 @@ description: Execute the next task/phase of the PLAN.md — plan, implement, tes
 
 You are driving the project forward one task (or phase) at a time. Follow these steps in order.
 
-**Context survival note:** Entering plan mode clears your conversation context. To preserve
-continuity, the plan you write in step 2 MUST include the full post-plan workflow (steps 3-7
-below) as an explicit section at the end of the plan document. This way, when the plan is loaded
-after exiting plan mode, the remaining instructions come with it.
+Keep the implementation, verification, commit, and plan-update steps visible in the working plan so
+the workflow survives harness context transitions.
 
 ### Step 1: Determine what to work on
 
-Read PLAN.md at the project root. Identify the first incomplete task under "Next Up". If the user
-provides arguments via `$ARGUMENTS`, treat that as guidance on what to work on instead. Summarize
+Read `PLAN.md` at the project root. Identify the first incomplete task under "Next Up". If the
+current user request identifies a different item, treat that as guidance instead. Summarize
 the task to the user in 1-2 sentences. If it is highly ambiguous as to what the next item is, then
 pause to confirm your next task with the user; in most cases you should be able to just continue
 without confirmation. If the top item is large (likely to consume more than 120k tokens for an LLM),
@@ -24,9 +22,8 @@ instructions but on a unit of work that will fit.
 
 ### Step 2: Plan
 
-You MUST enter plan mode with EnterPlanMode tool, any planning you do should be written to the
-plan-file path given by the EnterPlanMode tool. Do not write plans to new files on disk unless the
-user has asked you explicitly to do so.
+Use the harness's plan mode or plan-tracking tool when available. Otherwise, maintain the plan in
+the conversation. Do not create a separate plan file unless the user asks for one.
 
 Explore the codebase thoroughly to understand the current state — read the relevant source files,
 tests, and any related code. Produce a detailed, concrete implementation plan that:
@@ -46,8 +43,9 @@ containing the following verbatim instructions so they survive the context trans
 Execute these steps in order:
 
 ### Implement
-Execute the plan above. Work methodically — use task lists to track progress. Prefer editing
-existing files over creating new ones. Follow all project conventions from CLAUDE.md.
+Execute the plan above. Work methodically and use task lists to track progress. Prefer editing
+existing files over creating new ones. Follow all project conventions from `AGENTS.md` and any
+harness-specific compatibility instructions.
 
 **Naming gate:** before creating any file, identifier, run-id, or env var, ask "would this name
 make sense to someone who never read the plan?" If it encodes a sequence position (`Stage N` /
@@ -83,10 +81,10 @@ count as future work items unless they would naturally be handled by existing fu
 PLAN.md or COMPLETED.md are ignored, don't force add them, otherwise commit them with other changes.
 ```
 
-You MUST run ExitPlanMode tool with the plan. Do NOT ask "would you like to proceed?" unless you are truly
-confused.
+After recording the plan, proceed with execution without asking for confirmation unless a material
+ambiguity or risky choice requires user input.
 
 ### Steps 3-7 (post-plan)
 
-These steps are carried forward inside the plan document itself (see the `Post-Plan Execution Steps`
-section above). After exiting plan mode, follow those instructions from the plan.
+Carry these steps forward in the active plan (see `Post-Plan Execution Steps` above), then follow
+them through completion.

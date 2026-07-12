@@ -5,8 +5,8 @@ description: Audit the codebase for bugs, inconsistencies, and other issues, the
 
 ## Find Bugs Workflow
 
-You are auditing the current project's codebase for bugs and other issues. The user may have
-provided focus areas or constraints via `$ARGUMENTS`. Your job is to find real issues and add them
+You are auditing the current project's codebase for bugs and other issues. The current user request
+may provide focus areas or constraints. Your job is to find real issues and add them
 to the project's `PLAN.md` as future work items.
 
 ### Step 1: Read PLAN.md
@@ -16,14 +16,15 @@ context. This helps them avoid reporting issues that are already tracked.
 
 ### Step 2: Launch the discovery sub-agent
 
-Launch a sub-agent (subagent_type: "general-purpose") with the following instructions:
+Launch a general-purpose sub-agent with the following instructions. If the harness does not support
+delegation, perform this pass yourself before continuing.
 
 > Read through the codebase methodically. Your goal is to identify real issues — bugs,
 > inconsistencies, correctness problems, security concerns, performance pitfalls, data integrity
 > risks, operational hazards, or sources of confusion that could cause problems downstream.
 >
 > **Scope:** If the user provided arguments, treat them as guidance on where to focus or what kinds
-> of issues to prioritize. The arguments were: `$ARGUMENTS`
+> of issues to prioritize. Include the relevant constraints from the current user request.
 > If no arguments were provided, audit the full codebase with no particular bias.
 >
 > **Approach:**
@@ -46,8 +47,9 @@ Launch a sub-agent (subagent_type: "general-purpose") with the following instruc
 
 ### Step 3: Launch the review sub-agent
 
-Take the discovery sub-agent's output and pass it to a second sub-agent (subagent_type:
-"general-purpose") for review. This agent's job is to filter out false positives.
+Take the discovery output and pass it to a second general-purpose sub-agent for review. If the
+harness does not support delegation, perform a separate verification pass yourself. The review's
+job is to filter out false positives.
 
 > You are reviewing a list of potential bugs and issues found by another agent. Your job is to
 > verify each finding and filter out anything that is not a genuine concern.
@@ -80,8 +82,8 @@ add it as a bullet under the "Next up" section. Use this format for each entry:
 - **[category/severity] Title** — Explanation. (file:line)
 ```
 
-If `PLAN.md` doesn't exist, create it with a top-level "Next Up" section then add the items under
-"Next Up.
+If `PLAN.md` doesn't exist, create it with a top-level "Next Up" section, then add the items under
+"Next Up".
 
 If no issues survived the review, tell the user that no actionable issues were found and do not
 modify `PLAN.md`.

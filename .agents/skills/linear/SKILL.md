@@ -5,11 +5,10 @@ description: Use this skill whenever the user mentions Linear, Linear issues, Li
 
 # Linear CLI Quickstart
 
-The `linear` command (from `@schpet/linear-cli`, v2.x) is installed globally on this machine. Its
-rich plugin-backed skill lives at `~/.claude/plugins/cache/linear-cli/linear-cli/<version>/skills/linear-cli/SKILL.md`
-and is the canonical reference for every subcommand — read it for anything beyond the hotspots
-below. This skill exists to give you (future Claude) the minimum you need to answer a Linear
-question without rediscovering the CLI's quirks from scratch.
+The `linear` command (from `@schpet/linear-cli`, v2.x) is installed globally on this machine. Use
+`linear <command> --help` as the canonical reference for details beyond the hotspots below. If the
+active harness exposes an additional `linear-cli` skill, read it as supplementary guidance. This
+skill captures the local context and CLI quirks that should not be rediscovered each time.
 
 ## User context
 

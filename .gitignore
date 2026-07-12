@@ -31,3 +31,6 @@ tasks/
 telemetry/
 todos/
 
+# Compatibility links are tracked even when a global ignore excludes .claude.
+!.claude/
+!.claude/skills

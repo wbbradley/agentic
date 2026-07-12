@@ -13,15 +13,14 @@ Your job: distill the learning into a leaf note, place it at the right spot in
 the ontology, update the ontology, and commit. Leaves carry the weight — dense,
 structured, with references. Indexes stay thin. Keep the tree sane as it grows.
 
-If the user passed `$ARGUMENTS`, treat it as a hint about what to capture
+Treat any topic or path in the current user request as a hint about what to capture
 (a topic name, a suggested path, "the Rust part", etc.). Otherwise infer
 from context.
 
-**Conventions live in `~/wiki/CLAUDE.md`** — file layout, frontmatter shape,
-lightweight-index rule, move/rename rules, commit format. Read it first. This
-skill covers only the workflow (what to do in what order); `CLAUDE.md` covers
-the invariants (what the output must look like). Do not duplicate its content
-here.
+**Conventions live in `~/wiki/AGENTS.md`, with `~/wiki/CLAUDE.md` as a legacy fallback** — file
+layout, frontmatter shape, lightweight-index rule, move/rename rules, and commit format. Read the
+first one that exists. This skill covers only the workflow; that file covers the output invariants.
+Do not duplicate its content here.
 
 ## Step 1: Read the ontology
 
@@ -64,7 +63,7 @@ Rules:
    (`ai/llms/ingestion/html-to-markdown.md`). Beyond that the path becomes
    noise.
 
-If the user's `$ARGUMENTS` specified a path, respect it unless it contradicts
+If the current user request specified a path, respect it unless it contradicts
 an existing organization in a way you should flag.
 
 ## Step 4: Consider re-parenting
@@ -99,7 +98,7 @@ Do not write documentation or README files beyond what's needed here.
 
 ## Step 6: Commit
 
-Commit format lives in `~/wiki/CLAUDE.md`. Typical messages:
+Commit format lives in the wiki's instruction file. Typical messages:
 
 - `docs(wiki): add note on html-to-markdown for LLM ingestion`
 - `docs(wiki): extend ai/llms/html-to-markdown with llms.txt probing notes`

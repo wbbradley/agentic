@@ -5,9 +5,9 @@ description: Prepare a project for release — update README, changelog, commit 
 
 ## Publish Workflow
 
-Prepare the current project for a release. `$ARGUMENTS` may specify the version bump type (patch,
-minor, major) or an explicit version number. Default to **minor** or **patch** if unspecified. When
-we are below version 1.0, don't ask, just use your intuition.
+Prepare the current project for a release. The current user request may specify the version bump
+type (patch, minor, major) or an explicit version number. Default to **minor** or **patch** if
+unspecified. Below version 1.0, use judgment without asking solely about bump level.
 
 ### Step 0: Preflight
 
@@ -40,9 +40,9 @@ missing or incorrect. If the README is already accurate, skip this step.
 
 ### Step 2: Analyze changes and update CHANGELOG.md
 
-Launch a sub-agent (subagent_type: "general-purpose") to perform an in-depth analysis of all
-changes since the last version tag. Provide the sub-agent with the last version tag, current
-version, and detected project type from Step 0.
+Launch a general-purpose sub-agent, when supported, to perform an in-depth analysis of all changes
+since the last version tag. Otherwise, perform this analysis yourself. Use the last version tag,
+current version, and detected project type from Step 0.
 
 The sub-agent should:
 
@@ -110,8 +110,9 @@ uncommitted changes, skip this step.
 
 Determine the new version:
 - If the user overrode the bump level in Step 2 due to breaking changes, use that.
-- If `$ARGUMENTS` contains "major", "minor", or "patch", apply that bump to the current version.
-- If `$ARGUMENTS` contains an explicit version (e.g., "1.2.3"), use it directly.
+- If the current user request contains "major", "minor", or "patch", apply that bump to the
+  current version.
+- If the current user request contains an explicit version (e.g., "1.2.3"), use it directly.
 - Otherwise, default to a **patch** bump.
 
 Edit the version in the appropriate file for the detected project type:

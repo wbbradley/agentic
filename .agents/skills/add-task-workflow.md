@@ -1,7 +1,7 @@
 ## Add-Task Workflow
 
-You are adding a new task to the project's `PLAN.md`. The user has described what they want via
-`$ARGUMENTS`. Your job is to turn that into a well-defined, actionable task that could be handed
+You are adding a new task to the project's `PLAN.md`. The current user request describes what they
+want. Your job is to turn that into a well-defined, actionable task that could be handed
 off to a strong junior SWE.
 
 ### Naming principle (no stage/phase ordinals)
@@ -25,13 +25,13 @@ breaking references.
 
 ### Step 1: Delegate to a research sub-agent
 
-Launch a sub-agent to do the exploration work. Before launching, read `PLAN.md` yourself so you can
-pass its contents (or a sufficient summary) as context to the sub-agent along with the user's
-`$ARGUMENTS`.
+Launch a general-purpose sub-agent to do the exploration work when the harness supports delegation.
+Otherwise, perform the same exploration yourself. Before delegating, read `PLAN.md` so you can pass
+its contents (or a sufficient summary) with the user's request.
 
 The sub-agent should:
 
-1. Understand the request. Parse `$ARGUMENTS` for intent. If the request is ambiguous or
+1. Understand the current user request. If it is ambiguous or
    underspecified, ask the user clarifying questions before proceeding — don't guess.
 
 2. Explore the codebase and gather requirements. Read relevant source files, tests, configs,
@@ -73,9 +73,9 @@ If there are no open questions, skip straight to Step 3.
 
 ### Step 3: Add the task to PLAN.md
 
-Read the current `PLAN.md`. Insert the finalized task at the **$QUEUE_POSITION** of the "Next Up"
-section. If `PLAN.md` doesn't exist yet, create it with a top-level "Next Up" section, and place
-the new task under "Next Up".
+Read the current `PLAN.md`. Insert the finalized task at the queue position specified by the
+calling skill in the "Next Up" section. If `PLAN.md` doesn't exist yet, create it with a top-level
+"Next Up" section and place the new task under it.
 
 If the sub-agent suggested modifications to other existing tasks, present those suggestions to the
 user and only apply them with approval.
