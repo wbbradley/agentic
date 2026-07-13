@@ -22,13 +22,12 @@ in the corresponding harness directory.
 ## Install
 
 ```bash
-git clone git@github.com:wbbradley/.claude.git ~/src/agentic
-ln -s ~/src/agentic/.agents ~/.agents
-ln -s ~/src/agentic/.claude ~/.claude
+git clone git@github.com:wbbradley/agentic.git ~/src/agentic
+~/src/agentic/install.sh
 ```
 
-The repository remote still uses its historical `.claude` name. Renaming the remote repository is
-optional and does not affect the local layout.
+The repository name matches its canonical checkout at `~/src/agentic`; the hidden subdirectories
+provide each harness's home-directory configuration.
 
 Codex discovers skills from `~/.agents/skills`. Its global instruction file is normally
 `~/.codex/AGENTS.md`; link that file to the canonical source when needed:
