@@ -3,7 +3,7 @@
   "env": {
     "BASH_DEFAULT_TIMEOUT_MS": "3600000",
     "BASH_MAX_TIMEOUT_MS": "3600000",
-    "ENABLE_TOOL_SEARCH": "auto"
+    "ENABLE_TOOL_SEARCH": true
   },
   "permissions": {
     "allow": [
@@ -33,6 +33,70 @@
           {
             "type": "command",
             "command": "shellsafety"
+          }
+        ]
+      },
+      {
+        "matcher": "AskUserQuestion",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/wbbradley/src/tmux-agent/bin/tmux-agent-notify claude"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/wbbradley/src/tmux-agent/bin/tmux-agent-notify claude"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/wbbradley/src/tmux-agent/bin/tmux-agent-notify claude"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/wbbradley/src/tmux-agent/bin/tmux-agent-notify claude"
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/wbbradley/src/tmux-agent/bin/tmux-agent-resume claude"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/wbbradley/src/tmux-agent/bin/tmux-agent-cleanup claude"
           }
         ]
       }
