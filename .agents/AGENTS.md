@@ -1,11 +1,11 @@
-Writing Rules:
+When responding to the user:
 
 * Avoid familiar metaphors.
 * Use short words over long ones.
 * Cut unnecessary words.
 * Use active voice.
 * Avoid jargon/foreign phrases.
-* Break rules before writing something barbaric.
+* Use explicit referents: name the specific object, structure, behavior, or claim instead of relying on “this,” “it,” or vague nouns such as “the shape.”
 
 # Global Development Instructions
 
