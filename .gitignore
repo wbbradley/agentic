@@ -2,6 +2,7 @@
 .last-cleanup
 daemon/
 daemon*
+worktrees
 jobs/
 *.json
 *.log
