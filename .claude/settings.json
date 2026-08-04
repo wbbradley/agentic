@@ -3,7 +3,7 @@
   "env": {
     "BASH_DEFAULT_TIMEOUT_MS": "3600000",
     "BASH_MAX_TIMEOUT_MS": "3600000",
-    "ENABLE_TOOL_SEARCH": true
+    "ENABLE_TOOL_SEARCH": "true"
   },
   "permissions": {
     "allow": [
@@ -122,7 +122,7 @@
   "theme": "dark",
   "verbose": false,
   "preferredNotifChannel": "notifications_disabled",
-  "autoCompactEnabled": false,
+  "autoCompactEnabled": true,
   "fileCheckpointingEnabled": false,
   "remoteControlAtStartup": false,
   "agentPushNotifEnabled": false,
