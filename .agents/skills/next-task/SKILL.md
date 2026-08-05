@@ -16,7 +16,7 @@ Read `PLAN.md` at the project root. Identify the first incomplete task under "Ne
 current user request identifies a different item, treat that as guidance instead. Summarize
 the task to the user in 1-2 sentences. If it is highly ambiguous as to what the next item is, then
 pause to confirm your next task with the user; in most cases you should be able to just continue
-without confirmation. If the top item is large (likely to consume more than 120k tokens for an LLM),
+without confirmation. If the top item is large (should be broken into separate PRs),
 please break it into smaller sub-tasks first, update the PLAN.md, then proceed as per these
 instructions but on a unit of work that will fit.
 
@@ -69,3 +69,11 @@ If upcoming PLAN.md items need modifications due to a change during this impleme
 
 After recording the plan, proceed with execution without asking for confirmation unless a material
 ambiguity or risky choice requires user input.
+
+
+## Guidelines
+
+We make extensive use of git worktrees and git-stack for stacking branches/PRs.
+
+If this next task requires an existing (likely the current) branch, then go ahead and use git-stack to place a new branch in the stack at the ideal location, otherwise, please do all of this work in an entirely new branch off origin/main. It is probably a good idea to create the working branch prior to beginning work.
+

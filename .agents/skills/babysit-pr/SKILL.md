@@ -36,10 +36,10 @@ Each cycle:
    - Review (inline on code): `gh api repos/$REPO/pulls/$N/comments --paginate`
    - Issue (general discussion): `gh api repos/$REPO/issues/$N/comments --paginate`
    - Review **summaries** (top-level review bodies, NOT inline): `gh api repos/$REPO/pulls/$N/reviews --paginate` — **this is a distinct third source that inline+issue queries both miss.** Devin (and humans) post a review with a top-level body on every push (e.g. `**Devin Review** found N new potential issues`); those bodies live here, not under `pulls/comments` or `issues/comments`. A review body with `state=="CHANGES_REQUESTED"` is also a merge gate.
-   - **Actually READ the bodies every cycle — do not shortcut to "count new top-level IDs".** Comparing `max(id)` to a last-seen id catches a brand-new top-level thread but silently misses (a) a new **reply** on an existing thread (a human answering your reply), (b) a new **review summary** on `pulls/reviews`, and (c) an edited body. Each cycle, pull all three endpoints and read what changed, then decide per item. Enumerate unaddressed inline threads structurally (below); for issue comments and review summaries, read each body and confirm it has your Claude-signed reply (issue-comment replies are new issue comments; review-summary replies are a new issue comment referencing it).
+   - **Actually READ the bodies every cycle — do not shortcut to "count new top-level IDs".** Comparing `max(id)` to a last-seen id catches a brand-new top-level thread but silently misses (a) a new **reply** on an existing thread (a human answering your reply), (b) a new **review summary** on `pulls/reviews`, and (c) an edited body. Each cycle, pull all three endpoints and read what changed, then decide per item. Enumerate unaddressed inline threads structurally (below); for issue comments and review summaries, read each body and confirm it has your Agent-signed reply (issue-comment replies are new issue comments; review-summary replies are a new issue comment referencing it).
    - **NEVER filter the enumeration by author.** Human reviewers matter most, and bots are not the only source. Do not `select(.user.login=="…bot…")` — that silently drops every human comment. List them all, then decide per comment.
-   - **A comment under your own account is NOT necessarily yours.** Your `gh` token may post under the *same* GitHub identity a human reviewer uses (e.g. both appear as `wbbradley`), so login can't tell your replies from their comments. Distinguish structurally, not by author: **your** replies are the ones signed as Claude and sitting in a reply thread (`in_reply_to_id != null`); an **unaddressed** comment is a top-level review comment (`in_reply_to_id == null`) with no Claude-signed reply beneath it. Enumerate outstanding threads that way: `gh api repos/$REPO/pulls/$N/comments --paginate -q '.[] | select(.in_reply_to_id==null) | "\(.id)\t\(.user.login)\t\(.path):\(.line)"'` then cross off any whose thread already has your Claude-signed reply.
-3. **Merge state** — `gh pr view $N --json mergeable,mergeStateStatus`. If it is `CONFLICTING`/`DIRTY` (or `BEHIND` when the repo requires the branch be up to date), the base branch moved and the PR needs to be restacked before it can land — see *Merge conflicts*. `UNKNOWN` means GitHub is still computing; re-poll.
+   - **A comment under your own account is NOT necessarily yours.** Your `gh` token may post under the *same* GitHub identity a human reviewer uses (e.g. both appear as `wbbradley`), so login can't tell your replies from their comments. Distinguish structurally, not by author: **your** replies are the ones signed as "Agent" and sitting in a reply thread (`in_reply_to_id != null`); an **unaddressed** comment is a top-level review comment (`in_reply_to_id == null`) with no Agent-signed reply beneath it. Enumerate outstanding threads that way: `gh api repos/$REPO/pulls/$N/comments --paginate -q '.[] | select(.in_reply_to_id==null) | "\(.id)\t\(.user.login)\t\(.path):\(.line)"'` then cross off any whose thread already has your Agent-signed reply.
+3. **PR and merge state** — `gh pr view $N --json state,mergeable,mergeStateStatus`. Stop only when `state` is `MERGED` or `CLOSED`. If the merge state is `CONFLICTING`/`DIRTY` (or `BEHIND` when the repo requires the branch be up to date), the base branch moved and the PR needs to be restacked before it can land — see *Merge conflicts*. `UNKNOWN` means GitHub is still computing; re-poll.
 4. Act on anything **new** since last cycle (track handled comment IDs; only respond once per comment).
 5. Push fixes, then re-read `SHA`. A push starts new checks → next cycle waits on them.
 
@@ -86,8 +86,8 @@ while true; do
   SHA=$(gh pr view "$N" --json headRefOid -q .headRefOid 2>/dev/null)
   checks=$(gh api "repos/$REPO/commits/$SHA/check-runs" --paginate -q '.check_runs[] | "\(.name)|\(.status)|\(.conclusion // "-")"' 2>/dev/null | sort)
   statuses=$(gh api "repos/$REPO/commits/$SHA/status" -q '.statuses[] | "\(.context)|\(.state)"' 2>/dev/null | sort)
-  comments=$(gh api "repos/$REPO/issues/$N/comments" --paginate -q '.[].id' 2>/dev/null; gh api "repos/$REPO/pulls/$N/comments" --paginate -q '.[].id' 2>/dev/null; gh api "repos/$REPO/pulls/$N/reviews" --paginate -q '.[] | "\(.id)|\(.state)"' 2>/dev/null)
-  merge=$(gh pr view "$N" --json mergeable,mergeStateStatus -q '"\(.mergeable)|\(.mergeStateStatus)"' 2>/dev/null)
+  comments=$(gh api "repos/$REPO/issues/$N/comments" --paginate -q '.[] | [.id, .body] | @json' 2>/dev/null | sort; gh api "repos/$REPO/pulls/$N/comments" --paginate -q '.[] | [.id, .in_reply_to_id, .body] | @json' 2>/dev/null | sort; gh api "repos/$REPO/pulls/$N/reviews" --paginate -q '.[] | [.id, .state, .body] | @json' 2>/dev/null | sort)
+  merge=$(gh pr view "$N" --json state,mergeable,mergeStateStatus -q '"\(.state)|\(.mergeable)|\(.mergeStateStatus)"' 2>/dev/null)
   cur=$(printf '%s\n%s\n%s\n%s\n%s' "$SHA" "$checks" "$statuses" "$comments" "$merge" | shasum | cut -d' ' -f1)
   [ "$cur" != "$prev" ] && { echo "PR #$N state changed"; prev="$cur"; }
   sleep 30
@@ -98,6 +98,17 @@ The projection lists *every* check with its full status/conclusion — that is w
 keeps it global (any check's transition, any new comment, any merge-state change
 emits). It just excludes fields that change without an event. Re-reading `SHA` each
 loop also means the monitor survives a push (new head) without needing a re-arm.
+Hash comment bodies as shown, not only IDs: an edited body is an event even though
+its ID does not change. Include PR `state` so closing or merging wakes the agent.
+
+If the native Monitor tool is unavailable, a background shell poller is **not** a
+monitor by itself: its output must be connected to a continuously armed foreground
+wait/relay that yields every emitted line back into the agent's context. On Codex
+with a persistent exec session, poll that session for at most 35 seconds at a time
+and immediately yield any output. If user input or another tool call interrupts the
+relay, the agent's first action must be to drain the poller, perform a full cycle
+read, and re-arm the relay. Never report that monitoring is active while only the
+background poller is alive; without the relay, changes accumulate invisibly.
 
 - Every emitted line pulls you back. When it does, **read the full state yourself**
   — checks (both `check-runs` and `status` endpoints), comments (all three
@@ -121,7 +132,7 @@ loop also means the monitor survives a push (new head) without needing a re-arm.
   them crowd out a human reviewer's terse note (`"this is weird code structure"`,
   `"time all file operations on juicefs"`). Those are real, actionable review
   feedback — address them in code and reply, same as any bot finding.
-- **Sign every reply as Claude.**
+- **Sign every reply as "Agent".**
 - **NEVER resolve a thread.** Leave all threads open for the human reviewer to
   resolve — replying is your job, resolving is theirs.
 - **Address valid code feedback in code first**, then reply pointing at the fix.
