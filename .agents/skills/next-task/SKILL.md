@@ -75,5 +75,5 @@ ambiguity or risky choice requires user input.
 
 We make extensive use of git worktrees and git-stack for stacking branches/PRs.
 
-If this next task requires an existing (likely the current) branch, then go ahead and use git-stack to place a new branch in the stack at the ideal location, otherwise, please do all of this work in an entirely new branch off origin/main. It is probably a good idea to create the working branch prior to beginning work.
+If this next task requires an existing (likely the current) branch, then go ahead and use git-stack to place a new branch in the stack at the ideal location, otherwise, please do all of this work in an entirely new branch off origin/main named "$USER/$topic". It is probably a good idea to create the working branch prior to beginning work.
 
