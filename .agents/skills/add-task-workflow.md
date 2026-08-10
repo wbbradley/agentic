@@ -1,8 +1,9 @@
 ## Add-Task Workflow
 
-You are adding a new task to the project's `PLAN.md`. The current user request describes what they
-want. Your job is to turn that into a well-defined, actionable task that could be handed
-off to a strong junior SWE.
+You are adding a new task to a plan markdown file. Use the plan file path supplied by the calling
+skill; if the calling skill supplies no path, use `PLAN.md` at the project root. The current user
+request describes what they want. Your job is to turn that into a well-defined, actionable task
+that could be handed off to a strong junior SWE.
 
 ### Naming principle (no stage/phase ordinals)
 
@@ -26,8 +27,8 @@ breaking references.
 ### Step 1: Delegate to a research sub-agent
 
 Launch a general-purpose sub-agent to do the exploration work when the harness supports delegation.
-Otherwise, perform the same exploration yourself. Before delegating, read `PLAN.md` so you can pass
-its contents (or a sufficient summary) with the user's request.
+Otherwise, perform the same exploration yourself. Before delegating, read the plan file so you can
+pass its contents (or a sufficient summary) with the user's request.
 
 The sub-agent should:
 
@@ -38,7 +39,7 @@ The sub-agent should:
    docs, or anything else needed to understand what this task should touch. Use web search if the
    request involves external APIs, libraries, or concepts that need research.
 
-3. Check for overlap with existing tasks. Review the full `PLAN.md` for duplication or
+3. Check for overlap with existing tasks. Review the full plan file for duplication or
    partial overlap. If the new work is already covered by an existing task, tell the user and
    suggest whether to merge, extend, or skip. If the new task would benefit from changes to
    other existing tasks, note those suggestions — but do **not** modify other tasks without
@@ -63,7 +64,7 @@ The sub-agent should return the drafted task text and any suggestions about exis
 ### Step 2: Resolve open questions
 
 If the sub-agent flagged any open questions or ambiguities, present them to the user as a numbered
-list before writing anything to `PLAN.md`. Ask the user to answer or dismiss each one. Wait for
+list before writing anything to the plan file. Ask the user to answer or dismiss each one. Wait for
 their response.
 
 Once the user responds, incorporate their answers into the drafted task — refine scope, adjust
@@ -71,11 +72,11 @@ acceptance criteria, or add clarifying notes as appropriate. Drop any questions 
 
 If there are no open questions, skip straight to Step 3.
 
-### Step 3: Add the task to PLAN.md
+### Step 3: Add the task to the plan file
 
-Read the current `PLAN.md`. Insert the finalized task at the queue position specified by the
-calling skill in the "Next Up" section. If `PLAN.md` doesn't exist yet, create it with a top-level
-"Next Up" section and place the new task under it.
+Read the current plan file. Insert the finalized task at the queue position specified by the
+calling skill in the "Next Up" section. If the plan file doesn't exist yet, create it with a
+top-level "Next Up" section and place the new task under it.
 
 If the sub-agent suggested modifications to other existing tasks, present those suggestions to the
 user and only apply them with approval.
