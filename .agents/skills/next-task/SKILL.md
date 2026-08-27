@@ -10,13 +10,10 @@ You are driving the project forward one task (or phase) at a time. Follow these 
 Keep the implementation, verification, commit, and plan-update steps visible in the working plan so
 the workflow survives harness context transitions.
 
-### Required argument: plan file
+### The plan file
 
-Require the user to provide the exact path to the plan markdown file as an argument. Accept an
-absolute path or a path relative to the current working directory. Resolve it once at the start and
-refer to that resolved path as the **plan file** throughout this workflow. Do not infer the path,
-search for a plan file, or default to `PLAN.md`. If the argument is missing, stop and ask the user
-for it. If the specified file does not exist, stop and report that exact path.
+You should expect to find the plan file (`PLAN.md`) at the project's root, or in the current working
+directory.
 
 Use `COMPLETED.md` in the plan file's directory as the **completed file**.
 
