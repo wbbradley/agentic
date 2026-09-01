@@ -1,6 +1,6 @@
 ---
 name: next-task
-description: Execute the next task/phase of a specified plan markdown file — plan, implement, test, commit, and update the plan. Requires the plan file path as an explicit argument.
+description: Execute the next task/phase of PLAN.md — plan, implement, test, commit, and update the plan.
 ---
 
 ## Next Task Workflow
