@@ -15,16 +15,10 @@
       "Fetch(docs.rs)",
       "Fetch(*)"
     ],
-    "deny": [
-      "Read(~/.ssh)",
-      "Read(~/.sui)",
-      "Read(~/.gnupg)",
-      "Read(~/.password-store)"
-    ],
     "defaultMode": "default",
     "disableAutoMode": "disable"
   },
-  "model": "opus[1m]",
+  "model": "claude-fable-5-1[1m]",
   "hooks": {
     "PreToolUse": [
       {
