@@ -1,33 +1,23 @@
 ---
 name: wiki
-description: Extract key learnings from the current thread and file them into the user's personal wiki at ~/wiki, keeping the ontology (index.md) tidy and re-parenting/reorganizing the topic tree as it grows.
+description: Extract key learnings from the current thread and file them into the most relevant wiki.
 ---
 
 # Wiki Workflow
 
-You are adding knowledge from the current conversation into Will's personal wiki
-at `~/wiki` (a git repo). The thread you are in right now is the source
-material — the user has decided something in it is worth preserving.
+The user may have a wiki at ~/wiki, but look locally first at <current-project-root>/wiki and decide.
 
-Your job: distill the learning into a leaf note, place it at the right spot in
-the ontology, update the ontology, and commit. Leaves carry the weight — dense,
-structured, with references. Indexes stay thin. Keep the tree sane as it grows.
+Keep the wiki's ontology (index.md) tidy and re-parent/reorganize the topic tree as it grows.
 
-Treat any topic or path in the current user request as a hint about what to capture
-(a topic name, a suggested path, "the Rust part", etc.). Otherwise infer
-from context.
+You are adding knowledge from the current conversation into one of our wikis. The thread you are in right now is the source material — the user has decided something in it is worth preserving.
 
-**Conventions live in `~/wiki/AGENTS.md`, with `~/wiki/CLAUDE.md` as a legacy fallback** — file
-layout, frontmatter shape, lightweight-index rule, move/rename rules, and commit format. Read the
-first one that exists. This skill covers only the workflow; that file covers the output invariants.
-Do not duplicate its content here.
+Your job: distill the learning into a leaf note, place it at the right spot in the ontology, update the ontology, and commit. Leaves carry the weight — dense, structured, with references. Indexes stay thin. Keep the tree sane as it grows.
+
+Treat any topic or path in the current user request as a hint about what to capture (a topic name, a suggested path, "the Rust part", etc.). Otherwise infer from context.
 
 ## Step 1: Read the ontology
 
-Read `~/wiki/index.md` in full. It is the canonical map of the tree — every
-leaf should be reachable from it. Also list the wiki directory
-(`git -C ~/wiki ls-files`) so you see the actual file layout, not just what
-the index claims.
+Read `.../wiki/index.md` in full. It is the canonical map of the tree — every leaf should be transitively reachable from it. Also list the wiki directory (`git -C .../wiki ls-files`) so you see the actual file layout, not just what the index claims.
 
 ## Step 2: Distill the learning
 
@@ -40,15 +30,13 @@ From the current thread, write a concise note. Content guidance:
   as markdown links. If the thread did web searches, cite the specific URLs,
   not the search query.
 
-Keep it dense but readable. Favor bullets and short paragraphs over walls of
-prose. No filler ("In this note, we will explore…"). State things directly.
+Keep it dense but readable. Favor bullets and short paragraphs over walls of prose. No filler ("In this note, we will explore…"). State things directly.
 
-Never write a note longer than the underlying material justifies. A two-line
-fact is a two-line note.
+Never write a note longer than the underlying material justifies. A two-line fact is a two-line note.
 
 ## Step 3: Pick the topic path
 
-Decide where the note belongs. The path is `~/wiki/<topic>/<subtopic>/.../<slug>.md`.
+Decide where the note belongs. The relative path is `<topic>/<subtopic>/.../<slug>.md`.
 
 Rules:
 
@@ -88,7 +76,7 @@ Reorganization is cheap when done deliberately, expensive when done silently.
 
 1. Create/update the leaf note at the chosen path (`mkdir -p` any missing
    parent directories).
-2. Update `~/wiki/index.md` to list the note — one line, descriptive enough
+2. Update `index.md` to list the note — one line, descriptive enough
    that a reader can tell whether it's what they want, short enough to not
    bloat the index.
 3. If the sub-tree under the new leaf has enough notes to deserve its own
