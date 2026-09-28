@@ -1,17 +1,18 @@
 ---
 name: find-bugs
-description: Audit the codebase for bugs, inconsistencies, and other issues, then add findings to PLAN.md.
+description: Audit the codebase for bugs, inconsistencies, and other issues.
 ---
 
 ## Find Bugs Workflow
 
 You are auditing the current project's codebase for bugs and other issues. The current user request
 may provide focus areas or constraints. Your job is to find real issues and add them
-to the project's `PLAN.md` as future work items.
+to the current directory's `PLAN.md` as future work items. If the current directory lacks a `PLAN.md`,
+look in the parent dir. If neither exists, create `./PLAN.md`
 
 ### Step 1: Read PLAN.md
 
-Read `PLAN.md` at the project root (if it exists) so you can pass its contents to the sub-agents as
+Read `PLAN.md` at the found location so you can pass its contents to the sub-agents as
 context. This helps them avoid reporting issues that are already tracked.
 
 ### Step 2: Launch the discovery sub-agent
