@@ -18,7 +18,7 @@
     "defaultMode": "default",
     "disableAutoMode": "disable"
   },
-  "model": "opus",
+  "model": "opus[1m]",
   "hooks": {
     "PreToolUse": [
       {
@@ -35,7 +35,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/wbbradley/src/tmux-agent/bin/tmux-agent-notify claude"
+            "command": "tmux-agent-notify claude"
           }
         ]
       }
@@ -46,7 +46,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/wbbradley/src/tmux-agent/bin/tmux-agent-notify claude"
+            "command": "tmux-agent-notify claude"
           }
         ]
       }
@@ -57,7 +57,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/wbbradley/src/tmux-agent/bin/tmux-agent-notify claude"
+            "command": "tmux-agent-notify claude"
           }
         ]
       }
@@ -68,7 +68,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/wbbradley/src/tmux-agent/bin/tmux-agent-notify claude"
+            "command": "tmux-agent-notify claude"
           }
         ]
       }
@@ -79,7 +79,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/wbbradley/src/tmux-agent/bin/tmux-agent-resume claude"
+            "command": "tmux-agent-resume claude"
           }
         ]
       }
@@ -90,7 +90,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/wbbradley/src/tmux-agent/bin/tmux-agent-cleanup claude"
+            "command": "tmux-agent-cleanup claude"
           }
         ]
       }
