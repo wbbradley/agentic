@@ -18,7 +18,7 @@
     "defaultMode": "default",
     "disableAutoMode": "disable"
   },
-  "model": "opus[1m]",
+  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {
@@ -47,6 +47,15 @@
           {
             "type": "command",
             "command": "tmux-agent-notify claude"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bbs hook claude-code",
+            "timeout": 10
           }
         ]
       }
@@ -82,6 +91,15 @@
             "command": "tmux-agent-resume claude"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bbs hook claude-code",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "SessionEnd": [
@@ -91,6 +109,29 @@
           {
             "type": "command",
             "command": "tmux-agent-cleanup claude"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bbs hook claude-code",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bbs hook claude-code",
+            "timeout": 10
           }
         ]
       }
@@ -107,6 +148,11 @@
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "xhigh",
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "medium"
+    }
+  },
   "awaySummaryEnabled": false,
   "showClearContextOnPlanAccept": true,
   "tui": "fullscreen",

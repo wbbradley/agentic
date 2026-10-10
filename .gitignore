@@ -32,6 +32,7 @@ tasks/
 telemetry/
 todos/
 synced
+bbs
 
 # Compatibility links are tracked even when a global ignore excludes .claude.
 !.claude/
